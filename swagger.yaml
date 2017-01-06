@@ -12,11 +12,23 @@ paths:
         Retrieves the latest location of each user this user follows
       responses:
         200:
-          description: Successful response
+          description: Locations successfully retrieved
           schema:
             type: array
             items:
               $ref: '#/definitions/Location'
+    put:
+      description: Updates the current location of the user
+      responses:
+        200:
+          description: Location successfully stored
+        429:
+          description: Location was already updated too recently
+    delete:
+      description: Hides the user's current location
+      responses:
+        200:
+          description: Location successfully hidden
 
 definitions:
   Location:
