@@ -29,6 +29,18 @@ paths:
         401:
           description: Authentication failed
 
+  /notification:
+    put:
+      description: Turn on push notifications
+      responses:
+        200:
+          description: Push notifications enabled
+    delete:
+      description: Turn off push notifications
+      responses:
+        200:
+          description: Push notifications disabled
+
   /fcm/registrationId:
     put:
       description: Register an installation's FCM registration ID
@@ -41,18 +53,6 @@ paths:
       responses:
         200:
           description: Registration ID successfully stored
-
-  /fcm/enable:
-    put:
-      description: Turn on FCM notifications
-      responses:
-        200:
-          description: FCM notifications enabled
-    delete:
-      description: Turn off FCM notifications
-      responses:
-        200:
-          description: FCM notifications disabled
 
   /apns/token:
     put:
@@ -67,18 +67,6 @@ paths:
       responses:
         200:
           description: Device token successfully stored
-
-  /apns/enable:
-    put:
-      description: Turn on APNs notifications
-      responses:
-        200:
-          description: APNs notifications enabled
-    delete:
-      description: Turn off APNs notifications
-      responses:
-        200:
-          description: APNs notifications disabled
 
   /location/:
     get:
