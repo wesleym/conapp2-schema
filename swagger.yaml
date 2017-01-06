@@ -31,14 +31,27 @@ paths:
 
   /fcm:
     put:
-      description: Register a device's FCM registration ID
+      description: Register an installation's FCM registration ID
+      parameters:
+        - name: registrationId
+          in: body
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Registration ID successfully stored
 
   /apns:
     put:
-      description: Register a device's APNs device token
+      description: Register an installation's APNs device token
+      parameters:
+        - name: deviceToken
+          in: body
+          required: true
+          schema:
+            type: string
+            format: bytes
       responses:
         200:
           description: Device token successfully stored
