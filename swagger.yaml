@@ -70,8 +70,7 @@ paths:
 
   /location/:
     get:
-      description: |
-        Retrieves the latest location of each user this user follows
+      description: Retrieve the latest location of each user this user follows
       parameters:
         - name: conference
           in: query
@@ -87,7 +86,7 @@ paths:
             items:
               $ref: '#/definitions/Location'
     put:
-      description: Updates the current location of the user
+      description: Update the current location of the user
       responses:
         200:
           description: Location successfully stored
@@ -101,7 +100,7 @@ paths:
 
   /conference:
     put:
-      description: Sets the conference of interest for the current user. Only updates from this conference will notify the user.
+      description: Set the conference of interest for the current user. Only updates from this conference will notify the user.
       parameters:
         - name: conference
           in: formData
