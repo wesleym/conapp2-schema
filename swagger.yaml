@@ -64,6 +64,7 @@ paths:
         200:
           description: Locations successfully retrieved
           schema:
+            title: Locations
             type: array
             items:
               $ref: '#/definitions/Location'
@@ -87,7 +88,7 @@ definitions:
       - id
       - location
       - timestamp
-      - userId
+      - username
     properties:
       id:
         type: integer
@@ -98,8 +99,15 @@ definitions:
       timestamp:
         type: string
         format: date-time
-      userId:
-        type: integer
+      displayTimestamp:
+        type: string
+        description: |
+          The time at which the location was updated, humanely formatted for presentation to the user. For example, this may be "four minutes ago".
+      username:
+        type: string
+      profilePhoto:
+        type: string
+        format: url
       conference:
         type: string
         description: The hashtag representing a conference
