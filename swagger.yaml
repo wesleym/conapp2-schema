@@ -1,0 +1,44 @@
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "2.0.0"
+  title: Conapp 2
+
+paths:
+  /location/:
+    get:
+      description: |
+        Retrieves the latest location of each user this user follows
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Location'
+
+definitions:
+  Location:
+    type: object
+    required:
+      - id
+      - location
+      - timestamp
+      - userId
+    properties:
+      id:
+        type: integer
+      location:
+        type: string
+        description: The user's location as entered by the user
+        example: Conference room B
+      timestamp:
+        type: string
+        format: date-time
+      userId:
+        type: integer
+      conference:
+        type: string
+        description: The hashtag representing a conference
+        example: '#oow16'
