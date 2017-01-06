@@ -60,6 +60,12 @@ paths:
     get:
       description: |
         Retrieves the latest location of each user this user follows
+      parameters:
+        - name: conference
+          in: query
+          type: string
+          required: false
+          description: The conference of interest to the user. If this is specified, only locations from that conference are returned.
       responses:
         200:
           description: Locations successfully retrieved
@@ -80,6 +86,18 @@ paths:
       responses:
         200:
           description: Location successfully hidden
+
+  /conference:
+    put:
+      description: Sets the conference of interest for the current user. Only updates from this conference will notify the user.
+      parameters:
+        - name: conference
+          in: formData
+          type: string
+          required: true
+      responses:
+        200:
+          description: The conference was set successfully
 
 definitions:
   Location:
