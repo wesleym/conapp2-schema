@@ -31,6 +31,8 @@ paths:
               apiKey:
                 type: string
                 format: uuid
+        401:
+          description: Authentication failed
 
   /location/:
     get:
