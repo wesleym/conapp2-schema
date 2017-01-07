@@ -4,6 +4,12 @@ info:
   version: "2.0.0"
   title: Conapp 2
 
+consumes:
+  - application/json
+
+produces:
+  - application/json
+
 paths:
   /register:
     parameters:
