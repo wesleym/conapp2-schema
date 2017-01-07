@@ -11,14 +11,14 @@ produces:
   - application/json
 
 paths:
-  /register:
-    parameters:
-      - name: body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/RegistrationDetails'
-    post: # or put?
+  /session:
+    put:
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/RegistrationDetails'
       responses:
         200:
           description: Successfully logged in
@@ -31,6 +31,10 @@ paths:
                 description: API key for this specific installation to use to communicate with Conapp
         401:
           description: Authentication failed
+    delete:
+      responses:
+        204:
+          description: Successfully logged out
 
   /notification:
     put:
