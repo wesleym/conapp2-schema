@@ -13,24 +13,22 @@ produces:
 paths:
   /register:
     parameters:
-      - name: oAuthToken
-        in: formData
-        type: string
-        description: Twitter OAuth token
+      - name: body
+        in: body
         required: true
-      - name: oAuthTokenSecret
-        in: formData
-        type: string
-        description: Twitter OAuth token secret
-        required: true
+        schema:
+          $ref: '#/definitions/OAuthCredentials'
     post: # or put?
       responses:
         200:
           description: Successfully logged in
           schema:
-            type: string
-            format: uuid
-            description: API key for this specific installation to use to communicate with Conapp
+            type: object
+            properties:
+              apiKey:
+                type: string
+                format: uuid
+                description: API key for this specific installation to use to communicate with Conapp
         401:
           description: Authentication failed
 
@@ -50,11 +48,13 @@ paths:
     put:
       description: Register an installation's FCM registration ID
       parameters:
-        - name: registrationId
+        - name: body
           in: body
-          required: true
           schema:
-            type: string
+            type: object
+            properties:
+              registrationId:
+                type: string
       responses:
         204:
           description: Registration ID successfully stored
@@ -63,12 +63,14 @@ paths:
     put:
       description: Register an installation's APNs device token
       parameters:
-        - name: deviceToken
+        - name: body
           in: body
-          required: true
           schema:
-            type: string
-            format: bytes
+            type: object
+            properties:
+              deviceToken:
+                type: string
+                format: bytes
       responses:
         204:
           description: Device token successfully stored
@@ -93,13 +95,13 @@ paths:
     post: # TODO: dedupe with PUT /locations/mine
       description: Update the current location of the user
       parameters:
-        - name: location
-          in: formData
-          type: string
-        - name: timestamp
-          in: formData
-          type: string
-          format: date-time
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              location:
+                type: string
       responses:
         200:
           description: Location successfully stored
@@ -110,13 +112,13 @@ paths:
     put:
       description: Update the current location of the user
       parameters:
-        - name: location
-          in: formData
-          type: string
-        - name: timestamp
-          in: formData
-          type: string
-          format: date-time
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              location:
+                type: string
       responses:
         200:
           description: Location successfully stored
@@ -130,15 +132,23 @@ paths:
 
   /conference:
     put:
-      description: Set the conference of interest for the current user. Only updates from this conference will notify the user.
+      description: Set the conference of interest for this user. Only updates from this conference will notify the user.
       parameters:
-        - name: conference
-          in: formData
-          type: string
-          required: true
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              conference:
+                type: string
       responses:
         204:
           description: The conference was set successfully
+    delete:
+      description: Clear the conference of interest for this user. The user will be notified about all location updates of their followers.
+      responses:
+        204:
+          description: The conference was successfully cleared
 
 definitions:
   Location:
@@ -171,3 +181,15 @@ definitions:
         type: string
         description: The hashtag representing a conference
         example: '#oow16'
+  OAuthCredentials:
+    type: object
+    required:
+      - oAuthToken
+      - oAuthTokenSecret
+    properties:
+      oAuthToken:
+        type: string
+        description: Twitter OAuth token
+      oAuthTokenSecret:
+        type: string
+        description: Twitter OAuth token secret
