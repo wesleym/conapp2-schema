@@ -68,7 +68,7 @@ paths:
         200:
           description: Device token successfully stored
 
-  /location/:
+  /locations/:
     get:
       description: Retrieve the latest location of each user this user follows
       parameters:
@@ -85,8 +85,33 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Location'
+    post: # TODO: dedupe with PUT /locations/mine
+      description: Update the current location of the user
+      parameters:
+        - name: location
+          in: formData
+          type: string
+        - name: timestamp
+          in: formData
+          type: string
+          format: date-time
+      responses:
+        200:
+          description: Location successfully stored
+        429:
+          description: Location was already updated too recently
+
+  /locations/mine:
     put:
       description: Update the current location of the user
+      parameters:
+        - name: location
+          in: formData
+          type: string
+        - name: timestamp
+          in: formData
+          type: string
+          format: date-time
       responses:
         200:
           description: Location successfully stored
